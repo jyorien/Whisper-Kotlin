@@ -12,6 +12,7 @@ import com.example.whisperkotlin.R
 import com.example.whisperkotlin.databinding.FragmentHomeBinding
 import com.example.whisperkotlin.music.MusicService
 import com.example.whisperkotlin.music.SongList
+import java.io.Serializable
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,7 +39,14 @@ class HomeFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.horizontalRecyclerview.adapter = HomeListAdapter(SongList.bts) { song ->
             val intent = Intent(requireContext(), MusicService::class.java)
+            val args = Bundle()
+            args.putSerializable("playlist", SongList.bts as Serializable)
+            intent.putExtra("playlist_bundle", args)
             intent.putExtra("url", song.songUrl)
+            intent.putExtra("artisteName", song.artiste)
+            intent.putExtra("songName", song.songName)
+            intent.putExtra("songUrl", song.imageUrl)
+
             requireActivity().startService(intent)
         }
         return binding.root
