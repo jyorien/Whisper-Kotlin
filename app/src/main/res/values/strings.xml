@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WhisperKotlin</string>
+    <string name="home_tab_name">Home</string>
+    <string name="search_tab_name">Search</string>
+    <string name="fav_tab_name">Favourites</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

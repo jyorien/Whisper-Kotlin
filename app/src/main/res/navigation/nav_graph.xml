@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/tabHome">
+
+    <fragment
+        android:id="@+id/tabHome"
+        android:name="com.example.whisperkotlin.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_tabHome_to_tabSearch"
+            app:destination="@id/tabSearch" />
+        <action
+            android:id="@+id/action_tabHome_to_favouritesFragment"
+            app:destination="@id/tabFav" />
+    </fragment>
+    <fragment
+        android:id="@+id/tabSearch"
+        android:name="com.example.whisperkotlin.search.searchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_tabSearch_to_favouritesFragment"
+            app:destination="@id/tabFav" />
+        <action
+            android:id="@+id/action_tabSearch_to_tabHome"
+            app:destination="@id/tabHome" />
+    </fragment>
+    <fragment
+        android:id="@+id/tabFav"
+        android:name="com.example.whisperkotlin.favourites.FavouritesFragment"
+        android:label="fragment_favourites"
+        tools:layout="@layout/fragment_favourites" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_tabSearch"
+            app:destination="@id/tabSearch" />
+        <action
+            android:id="@+id/action_favouritesFragment_to_tabHome"
+            app:destination="@id/tabHome" />
+    </fragment>
+</navigation>
