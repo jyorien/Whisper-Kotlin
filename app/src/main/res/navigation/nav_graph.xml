@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/tabSearch"
-        android:name="com.example.whisperkotlin.search.searchFragment"
+        android:name="com.example.whisperkotlin.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action

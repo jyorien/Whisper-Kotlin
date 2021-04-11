@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
             intent.putExtra("url", song.songUrl)
             intent.putExtra("artisteName", song.artiste)
             intent.putExtra("songName", song.songName)
-            intent.putExtra("songUrl", song.imageUrl)
+            intent.putExtra("imageUrl", song.imageUrl)
 
             requireActivity().startService(intent)
         }

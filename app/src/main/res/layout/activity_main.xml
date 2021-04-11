@@ -27,7 +27,7 @@
 
         <fragment
             android:id="@+id/media_fragment"
-            android:name="com.example.whisperkotlin.MediaFragment"
+            android:name="com.example.whisperkotlin.minicontroller.MediaFragment"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"

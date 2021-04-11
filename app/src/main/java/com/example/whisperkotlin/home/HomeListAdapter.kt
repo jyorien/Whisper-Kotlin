@@ -16,16 +16,9 @@ class HomeListAdapter(val songList: List<Song>, val onItemClicked: (Song) -> Uni
     RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image: ImageView
-        val artiste: TextView
-        val songName: TextView
-
-        init {
-            image = itemView.findViewById(R.id.albumImage)
-            artiste = itemView.findViewById(R.id.artisteName)
-            songName = itemView.findViewById(R.id.songName)
-        }
-
+        val image: ImageView = itemView.findViewById(R.id.albumImage)
+        val artiste: TextView = itemView.findViewById(R.id.artisteName)
+        val songName: TextView = itemView.findViewById(R.id.songName)
 
     }
 
@@ -38,7 +31,7 @@ class HomeListAdapter(val songList: List<Song>, val onItemClicked: (Song) -> Uni
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.artiste.text = songList[position].artiste
         holder.songName.text = songList[position].songName
-        Glide.with(holder.image.context).load(songList[position].imageUrl).override(256, 256)
+        Glide.with(holder.image.context).load(songList[position].imageUrl)
             .centerCrop().into(holder.image)
         holder.itemView.setOnClickListener {
             onItemClicked(songList[position])

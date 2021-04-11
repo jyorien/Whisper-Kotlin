@@ -11,17 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhisperKotlin">
+        <activity android:name=".music.MusicPlayerActivity"></activity>
+
         <service
             android:name=".music.MusicService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
