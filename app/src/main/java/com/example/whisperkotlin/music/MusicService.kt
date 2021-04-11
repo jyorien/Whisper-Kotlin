@@ -13,8 +13,25 @@ import java.io.IOException
 
 class MusicService : Service() {
     private lateinit var mediaPlayer: MediaPlayer
-    private var url = ""
-    private var playlist = emptyList<Song>()
+    private var _currentSongName = ""
+    val currentSongName
+        get() = _currentSongName
+
+    private var _currentArtisteName = ""
+    val currentArtisteName
+        get() = _currentArtisteName
+    private var _currentImageUrl = ""
+    val currentImageUrl
+        get() = _currentImageUrl
+
+    private var _currentSongUrl = ""
+    val currentSongUrl
+        get() = _currentSongUrl
+
+    private var _currentSongList = emptyList<Song>()
+    val currentSongList
+        get() = _currentSongList
+
     private var pausePosition = 0
     override fun onCreate() {
         super.onCreate()
@@ -30,19 +47,17 @@ class MusicService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null) {
-            url = intent.getStringExtra("url").toString()
-            playlist =
+            _currentSongUrl = intent.getStringExtra("url").toString()
+            _currentSongName = intent.getStringExtra("songName").toString()
+            _currentArtisteName = intent.getStringExtra("artisteName").toString()
+            _currentImageUrl = intent.getStringExtra("imageUrl").toString()
+            _currentSongList =
                 intent.getBundleExtra("playlist_bundle")?.getSerializable("playlist") as List<Song>
-            preparePlayer(url)
+            preparePlayer(_currentSongUrl)
             startPlayer()
 
             // send broadcast to mini controller to display data
-            val controllerIntent = Intent("SONG")
-            controllerIntent.putExtra("songName", intent.getStringExtra("songName"))
-            controllerIntent.putExtra("artisteName", intent.getStringExtra("artisteName"))
-            controllerIntent.putExtra("imageUrl", intent.getStringExtra("imageUrl"))
-
-            LocalBroadcastManager.getInstance(this).sendBroadcast(controllerIntent)
+            broadcastSong(intent)
 
         }
 
@@ -68,7 +83,7 @@ class MusicService : Service() {
         }
     }
 
-    fun startPlayer() {
+    private fun startPlayer() {
         mediaPlayer.setOnPreparedListener { player ->
             player.start()
             Toast.makeText(this, "START", Toast.LENGTH_SHORT).show()
@@ -84,5 +99,60 @@ class MusicService : Service() {
 
     fun resumePlayer() {
         mediaPlayer.start()
+    }
+
+    fun setCurrentDetails(
+        songName: String,
+        artisteName: String,
+        songUrl: String,
+        imageUrl: String
+    ) {
+        _currentSongName = songName
+        _currentArtisteName = artisteName
+        _currentSongUrl = songUrl
+        _currentImageUrl = imageUrl
+        preparePlayer(_currentSongUrl)
+        startPlayer()
+
+        val intent = Intent()
+        intent.putExtra("songName", _currentSongName)
+        intent.putExtra("artisteName", _currentArtisteName)
+        intent.putExtra("imageUrl", _currentImageUrl)
+        broadcastSong(intent)
+    }
+
+
+    fun broadcastSong(intent: Intent) {
+        // send broadcast to mini controller to display data
+        val controllerIntent = Intent("SONG")
+        controllerIntent.putExtra("songName", intent.getStringExtra("songName"))
+        controllerIntent.putExtra("artisteName", intent.getStringExtra("artisteName"))
+        controllerIntent.putExtra("imageUrl", intent.getStringExtra("imageUrl"))
+
+        LocalBroadcastManager.getInstance(this).sendBroadcast(controllerIntent)
+    }
+
+
+    fun getNextSong() {
+        val song: Song = if (currentSongIndex() == _currentSongList.size - 1)
+            _currentSongList[0]
+        else
+            _currentSongList[currentSongIndex() + 1]
+        setCurrentDetails(song.songName, song.artiste, song.songUrl, song.imageUrl)
+    }
+
+    fun getPrevSong() {
+        val song: Song
+        if (currentSongIndex() == 0)
+            song = currentSongList.last()
+        else
+            song = _currentSongList[currentSongIndex() - 1]
+        setCurrentDetails(song.songName, song.artiste, song.songUrl, song.imageUrl)
+    }
+
+    private fun currentSongIndex(): Int {
+        return currentSongList.indexOfFirst {
+            it.songName == _currentSongName
+        }
     }
 }

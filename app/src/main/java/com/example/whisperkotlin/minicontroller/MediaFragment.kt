@@ -39,8 +39,11 @@ class MediaFragment : Fragment() {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             val binder = service as MusicService.LocalBinder
             mService = binder.getService()
-            Toast.makeText(requireContext(), "SERVICE OBTAINED", Toast.LENGTH_SHORT).show()
             mBound = true
+            if (mService.isPlaying())
+                binding.controllerPlayPause.setBackgroundResource(R.drawable.ic_baseline_play_arrow_24)
+            else
+                binding.controllerPlayPause.setBackgroundResource(R.drawable.ic_baseline_pause_24)
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -87,4 +90,6 @@ class MediaFragment : Fragment() {
 
         return binding.root
     }
+
+
 }
