@@ -1,20 +1,27 @@
 package com.example.whisperkotlin.music
 
 import android.content.*
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.bumptech.glide.Glide
 import com.example.whisperkotlin.R
 import com.example.whisperkotlin.databinding.ActivityMusicPlayerBinding
+import kotlin.math.sqrt
 
 class MusicPlayerActivity : AppCompatActivity() {
     private var mBound = false
     private lateinit var mService: MusicService
     private lateinit var binding: ActivityMusicPlayerBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +50,6 @@ class MusicPlayerActivity : AppCompatActivity() {
                 mService.getPrevSong()
                 assignData()
             }
-
-
         }
     }
 
@@ -80,11 +85,13 @@ class MusicPlayerActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         mBound = false
         unbindService(mConnection)
 
     }
+
 
 }

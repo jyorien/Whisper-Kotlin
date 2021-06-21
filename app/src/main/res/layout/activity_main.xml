@@ -25,14 +25,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/bottom_nav_menu" />
 
-        <fragment
-            android:id="@+id/media_fragment"
-            android:name="com.example.whisperkotlin.minicontroller.MediaFragment"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
 
         <fragment
             android:id="@+id/host_fragment"
@@ -47,5 +39,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:navGraph="@navigation/nav_graph" />
+        <fragment
+            android:id="@+id/media_fragment"
+            android:name="com.example.whisperkotlin.minicontroller.MediaFragment"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

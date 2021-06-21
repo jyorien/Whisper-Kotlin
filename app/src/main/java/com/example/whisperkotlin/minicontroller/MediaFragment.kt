@@ -91,19 +91,10 @@ class MediaFragment : Fragment() {
         return binding.root
     }
 
-//    override fun onPause() {
-//        super.onPause()
-//        requireActivity().unbindService(mConnection)
-//
-//    }
-
     override fun onResume() {
         super.onResume()
-//        Intent(requireContext(), MusicService::class.java).also { intent ->
-//            // bind activity to service
-//            requireActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
-//        }
         if (::mService.isInitialized) {
+            // only check if activity resumed from back stack
             if (mService.isPlaying()) {
                 binding.controllerPlayPause.setBackgroundResource(R.drawable.ic_baseline_pause_24)
             } else {

@@ -11,7 +11,6 @@
         android:layout_width="256dp"
         android:layout_height="256dp"
         android:layout_marginStart="72dp"
-        android:layout_marginTop="188dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
